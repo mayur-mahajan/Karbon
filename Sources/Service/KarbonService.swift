@@ -24,7 +24,7 @@ class MyServiceDelegate: NetServiceDelegate {
     func netService(_ sender: NetService, didAcceptConnectionWith socket: Socket) {
         print("Did accept connection: \(sender), from: \(socket.remoteHostname)")
         print(try! socket.readString() ?? "")
-        try! socket.write(from: "HTTP/1.1 200 OK\r\nContent-Length: 13\r\n\r\nHello, world!")
+        try! socket.write(from: "HTTP/1.1 200 OK\r\nContent-Length: 14\r\n\r\nHello, Karbon!")
         socket.close()
     }
 }
@@ -63,8 +63,13 @@ public class KarbonService {
             .childChannelOption(ChannelOptions.socket(SocketOptionLevel(SOL_SOCKET), SO_REUSEADDR), value: 1)
             .childChannelOption(ChannelOptions.maxMessagesPerRead, value: 1)
 
+        var sa = sockaddr_in()
+        sa.sin_family = sa_family_t(AF_INET)
+        sa.sin_addr.s_addr = UInt32(bigEndian: INADDR_ANY)
+        sa.sin_port = UInt16(port).bigEndian
+        let address = SocketAddress(sa, host: "")
         let channel = try { () -> Channel in
-            return try bootstrap.bind(host: host, port: port).wait()
+            return try bootstrap.bind(to: address).wait()
         }()
         
         guard let localAddress = channel.localAddress else {
@@ -77,8 +82,6 @@ public class KarbonService {
         let serviceDelegate = MyServiceDelegate()
         netService?.delegate = serviceDelegate
         netService?.publish()
-        RunLoop.main.run()
-        print("Advertised service and Runloop started.")
         try channel.closeFuture.wait()
     }
     

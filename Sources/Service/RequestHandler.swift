@@ -116,7 +116,7 @@ public final class RequestHandler: ChannelInboundHandler {
             self.state.requestReceived()
             
             var responseHead = httpResponseHead(request: request, status: HTTPResponseStatus.ok)
-            responseHead.headers.add(name: "content-length", value: "12")
+            responseHead.headers.add(name: "content-length", value: "13")
             let response = HTTPServerResponsePart.head(responseHead)
             ctx.write(self.wrapOutboundOut(response), promise: nil)
         case .body:
@@ -134,8 +134,8 @@ public final class RequestHandler: ChannelInboundHandler {
     }
     
     public func handlerAdded(ctx: ChannelHandlerContext) {
-        self.buffer = ctx.channel.allocator.buffer(capacity: 12)
-        self.buffer.write(staticString: "Hello World!")
+        self.buffer = ctx.channel.allocator.buffer(capacity: 13)
+        self.buffer.write(staticString: "Hello Karbon!")
     }
 
 }
