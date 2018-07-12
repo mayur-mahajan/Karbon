@@ -9,7 +9,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/mayur-mahajan/swift-nio.git", .revision("d913c886befe2f92ae250ad1666131b6013e32d9")),
-        .package(url: "https://github.com/mayur-mahajan/NetService.git", .revision("d4959eaf3d10ab4fc51750059da31f86d702ced9"))
+        .package(url: "https://github.com/mayur-mahajan/NetService.git", .revision("75ed5c4aa92eaaa53dfafaa9e12a0dce5211d23a"))
     ],
     targets: [
         .target(name: "Server", dependencies: ["Service"]),
