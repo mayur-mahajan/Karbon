@@ -8,8 +8,8 @@ let package = Package(
         .library(name: "Service", targets: ["Service"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/mayur-mahajan/swift-nio.git", .revision("d913c886befe2f92ae250ad1666131b6013e32d9")),
-        .package(url: "https://github.com/mayur-mahajan/NetService.git", .revision("75ed5c4aa92eaaa53dfafaa9e12a0dce5211d23a"))
+        .package(url: "https://github.com/mayur-mahajan/swift-nio.git", .revision("26324082af963922fda832c626287a81d532f8d4")),
+        .package(url: "https://github.com/mayur-mahajan/NetService.git", .revision("7dd736338a5ce7acf11fd01b4e8d4038990f09ec"))
     ],
     targets: [
         .target(name: "Server", dependencies: ["Service"]),

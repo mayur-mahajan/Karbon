@@ -80,6 +80,7 @@ public class KarbonService {
         
         netService = NetService(domain: "local.", type: "_http._tcp.", name: "karbon", port: Int32(localAddress.port!))
         let serviceDelegate = MyServiceDelegate()
+        _ = netService?.setTXTRecord(["id":"6789"])
         netService?.delegate = serviceDelegate
         netService?.publish()
         try channel.closeFuture.wait()
